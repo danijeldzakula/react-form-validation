@@ -1,7 +1,6 @@
 import React from 'react';
 
 const FormAdResult = ({ oglas }) => {
-  console.log(oglas)
   return (
     <section className='section section-add-new-ad-result'>
       <div className="container">
