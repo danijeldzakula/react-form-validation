@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import AlertMessage from '../../components/alertMessage/AlertMessage';
 
 const CreateFormAd = ({ addOglas, myName }) => {
 
@@ -16,6 +17,8 @@ const CreateFormAd = ({ addOglas, myName }) => {
     to: undefined
   });
 
+  const [ successMessage, setSuccessMessage ] = useState('');
+
 
   const handleError = (element, name) => {
     name === '' || name === '0' || typeof name === 'undefined' ? element.current.classList.add('error') : element.current.classList.remove('error');
@@ -32,6 +35,7 @@ const CreateFormAd = ({ addOglas, myName }) => {
 
     if (formResult.regions.length !== 0 && formResult.regions !== '' && formResult.regions !== '0' && formResult.cities.length !== 0 && formResult.cities !== '' && formResult.cities !== '0' && formResult.description !== '' && formResult.description.length !== 0 && formResult.from !== undefined && formResult.to !== undefined) {
       addOglas(formResult);
+      setSuccessMessage('Uspesno ste popunili obrazac!');
       setFormResult({ regions: "", cities: "", description: "", from: undefined, to: undefined });
     }
   }
@@ -70,6 +74,9 @@ const CreateFormAd = ({ addOglas, myName }) => {
         <form className='form' onSubmit={(event) => handleSubmit(event)}>
           <h2 className='text-center mb-4 mt-4 border-b-[1px] border-zinc-400 pb-4'>{myName}</h2>
           <h2 className='text-center mb-4 mt-4 text-2xl'>Add new Ad</h2>
+
+          {successMessage.length ? <AlertMessage message={successMessage} time={10000} /> : null}
+
           <div className='form-group'>
             <label htmlFor="regions" className='block mb-2'>Region:</label>
             <select className='select-field' name="regions" id='regions' onChange={handleChange} ref={refRegion}>

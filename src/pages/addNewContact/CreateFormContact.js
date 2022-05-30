@@ -1,9 +1,12 @@
 import React, { useRef, useState } from 'react';
+import AlertMessage from '../../components/alertMessage/AlertMessage';
 
 const FormContact = ({ addContact, myName }) => {
   const name = useRef(null);
   const email = useRef(null);
   const phone = useRef(null);
+
+  const [ successMessage, setSuccessMessage ] = useState('');
 
   const [ formResult, setFormResult ] = useState({
     name: '',
@@ -24,6 +27,7 @@ const FormContact = ({ addContact, myName }) => {
 
     if (formResult.name.length !== 0 && formResult.email.length !== 0 && formResult.phone.length !== 0) {
       addContact(formResult);
+      setSuccessMessage('Uspesno ste popunili obrazac!');
       setFormResult({ name: "", email: "", phone: "" });
     }
   }
@@ -38,6 +42,8 @@ const FormContact = ({ addContact, myName }) => {
         <form className='form' onSubmit={(event) => handleSubmit(event)}>
           <h2 className='text-center mt-4 mb-4 border-b-[1px] border-zinc-400 pb-4'>{myName}</h2>
           <h2 className='text-center mb-4 mt-4 text-2xl'>Add new Contact</h2>
+          {successMessage.length ? <AlertMessage message={successMessage} time={10000} /> : null}
+
           <div className='form-group'>
             <label htmlFor="name" className='block mb-2'>Name:</label>
             <input className='input-field' placeholder='Name' id='name' type='text' name='name' ref={name} value={formResult.name} onChange={handleChange} />

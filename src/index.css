@@ -41,4 +41,8 @@
     .section { @apply pt-10 pb-10 }
 
     .header .nav .nav-link.active { @apply bg-teal-500 }
+
+    .alert-message { @apply hidden }
+    .alert-message.is-show { @apply relative mx-auto mb-4 w-full max-w-xs grid p-4 text-center shadow-md border-[1px] border-green-500 bg-green-500/[0.3] backdrop-blur-xl z-50 } 
+
 }
