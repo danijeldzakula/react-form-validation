@@ -18,28 +18,23 @@ const CreateFormAd = ({ addOglas }) => {
 
 
   const handleError = (element, name) => {
-    console.log(name === '' || name === '0' || typeof name === 'undefined' || name === undefined)
-    // name === '' || name === '0' || name === undefined ? element.current.classList.add('error') : element.current.classList.remove('error');
     name === '' || name === '0' || typeof name === 'undefined' ? element.current.classList.add('error') : element.current.classList.remove('error');
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (formResult.regions === '' || formResult.regions === '0' || formResult.cities === '' || formResult.cities === '0' || formResult.description === '' || formResult.from === undefined || formResult.to === undefined) {
-      handleError(refRegion, formResult.regions);
-      handleError(refCity, formResult.cities);
-      handleError(refDescription, formResult.description);
-      handleError(refDateFrom, formResult.from);
-      handleError(refDateTo, formResult.to);
-    } else {
+    handleError(refRegion, formResult.regions);
+    handleError(refCity, formResult.cities);
+    handleError(refDescription, formResult.description);
+    handleError(refDateFrom, formResult.from);
+    handleError(refDateTo, formResult.to);
+
+    if (formResult.regions !== '' && formResult.regions !== '0' && formResult.cities !== '' && formResult.cities !== '0' && formResult.description !== '' && formResult.from !== undefined && formResult.to !== undefined) {
       addOglas(formResult);
       setFormResult({ regions: "", cities: "", description: "", from: undefined, to: undefined });
     }
-
   }
-
-
 
   const handleChange = (event) => {
     setFormResult({ ...formResult, [event.target.name]: event.target.value });
@@ -66,6 +61,7 @@ const CreateFormAd = ({ addOglas }) => {
     return () => {}
   }, []);
 
+
   return (
     <section className='section section-add-new-contact'>
       <div className="container max-w-md">
@@ -82,6 +78,7 @@ const CreateFormAd = ({ addOglas }) => {
               })}
             </select>
           </div>
+
           <div className='form-group'>
             <label htmlFor="cities" className='block mb-2'>City:</label>
             <select className='select-field' name="cities" id='cities' onChange={handleChange} ref={refCity}>
@@ -89,7 +86,7 @@ const CreateFormAd = ({ addOglas }) => {
               {cities && cities.filter((city) => city.region === parseInt(formResult?.regions))
                 .map((city, key) => {
                   return (
-                    <option key={key} value={city.region || ''} >{city.value}</option>
+                    <option key={key} value={city.value || ''} >{city.value}</option>
                   )
                 })
               }
