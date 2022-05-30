@@ -16,7 +16,7 @@ const AddNewAd = () => {
   return (
     <>
       <CreateFormAd addOglas={addOglas} myName={myName} />
-      {oglas.length && <FormAdResult oglas={oglas} />}
+      {oglas.length ? <FormAdResult oglas={oglas} /> : null}
     </>
   )
 }

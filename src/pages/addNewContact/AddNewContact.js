@@ -15,7 +15,7 @@ const AddNewContact = () => {
   return (
     <>
       <FormContact addContact={addContact} myName={myName} />
-      {contacts.length && <FormContactResult contacts={contacts} />}
+      {contacts.length ? <FormContactResult contacts={contacts} /> : null}
     </>
   )
 }

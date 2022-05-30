@@ -30,7 +30,7 @@ const CreateFormAd = ({ addOglas, myName }) => {
     handleError(refDateFrom, formResult.from);
     handleError(refDateTo, formResult.to);
 
-    if (formResult.regions !== '' && formResult.regions !== '0' && formResult.cities !== '' && formResult.cities !== '0' && formResult.description !== '' && formResult.from !== undefined && formResult.to !== undefined) {
+    if (formResult.regions.length !== 0 && formResult.regions !== '' && formResult.regions !== '0' && formResult.cities.length !== 0 && formResult.cities !== '' && formResult.cities !== '0' && formResult.description !== '' && formResult.description.length !== 0 && formResult.from !== undefined && formResult.to !== undefined) {
       addOglas(formResult);
       setFormResult({ regions: "", cities: "", description: "", from: undefined, to: undefined });
     }
@@ -51,6 +51,8 @@ const CreateFormAd = ({ addOglas, myName }) => {
   }, []);
 
 
+  console.log(formResult)
+
   const [ cities, setCities ] = useState([]);
   useEffect(() => {
     fetch("server/cities.json")
@@ -67,7 +69,7 @@ const CreateFormAd = ({ addOglas, myName }) => {
       <div className="container max-w-md">
         <form className='form' onSubmit={(event) => handleSubmit(event)}>
           <h2 className='text-center mb-4 mt-4 border-b-[1px] border-zinc-400 pb-4'>{myName}</h2>
-          <h2 className='text-center mb-4 mt-4'>Add new Ad</h2>
+          <h2 className='text-center mb-4 mt-4 text-2xl'>Add new Ad</h2>
           <div className='form-group'>
             <label htmlFor="regions" className='block mb-2'>Region:</label>
             <select className='select-field' name="regions" id='regions' onChange={handleChange} ref={refRegion}>
