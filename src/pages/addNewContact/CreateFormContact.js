@@ -2,36 +2,48 @@ import React, { useRef, useState } from 'react';
 import AlertMessage from '../../components/alertMessage/AlertMessage';
 
 const FormContact = ({ addContact, myName }) => {
+  // all inputs refs
   const name = useRef(null);
   const email = useRef(null);
   const phone = useRef(null);
-
-  const [ successMessage, setSuccessMessage ] = useState('');
-
+  // form results 
   const [ formResult, setFormResult ] = useState({
     name: '',
     email: '',
     phone: ''
   });
 
+  // add error to input
   const handleError = (element, name) => {
     name.length === 0 ? element.current.classList.add('error') : element.current.classList.remove('error');
   }
 
+  // set message value
+  const [ messages, setMessages ] = useState([]);
+  // call messages 
+  const callMessage = (value) => {
+    setMessages([...messages, value]);
+  }
+
+  // handle submit form 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    // handle input error
     handleError(name, formResult.name);
     handleError(email, formResult.email);
     handleError(phone, formResult.phone);
-
+    // check validation form
     if (formResult.name.length !== 0 && formResult.email.length !== 0 && formResult.phone.length !== 0) {
+      // add new contact 
       addContact(formResult);
-      setSuccessMessage('Uspesno ste popunili obrazac!');
+      // reset state to default values
       setFormResult({ name: "", email: "", phone: "" });
+      // write success messages
+      callMessage({message: 'Uspesno ste popunili obrazac!'});
     }
   }
-
+  
+  // get value with onchange event
   const handleChange = (event) => {
     setFormResult({ ...formResult, [event.target.name]: event.target.value });
   };
@@ -42,7 +54,7 @@ const FormContact = ({ addContact, myName }) => {
         <form className='form' onSubmit={(event) => handleSubmit(event)}>
           <h2 className='text-center mt-4 mb-4 border-b-[1px] border-zinc-400 pb-4'>{myName}</h2>
           <h2 className='text-center mb-4 mt-4 text-2xl'>Add new Contact</h2>
-          {successMessage.length ? <AlertMessage message={successMessage} time={10000} /> : null}
+          {messages.length ? messages.map((message, key) => <AlertMessage message={message.message} time={10000} key={key} /> ) : null}
 
           <div className='form-group'>
             <label htmlFor="name" className='block mb-2'>Name:</label>
@@ -56,7 +68,6 @@ const FormContact = ({ addContact, myName }) => {
             <label htmlFor="phone" className='block mb-2'>Phone:</label>
             <input className='input-field' placeholder='Phone number' id='phone' type='number' name='phone' ref={phone} value={formResult.phone} onChange={handleChange} />
           </div>
-          
           <div className='form-group'>
             <button type='submit' className='btn-submit'>Submit</button>
           </div>

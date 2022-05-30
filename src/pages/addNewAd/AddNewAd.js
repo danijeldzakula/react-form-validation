@@ -5,14 +5,14 @@ import CreateFormAd from './CreateFormAd';
 import FormAdResult from './FormAdResult';
 
 const AddNewAd = () => {
+  // ad results
   const [ oglas, updateOglas ] = useState([]);
-
+  // get name from context
   const { myName } = useGlobal();
-
+  // set ad results
   const addOglas = (form) => {
     updateOglas([...oglas, form]);
-  }  
-
+  }
   return (
     <>
       <CreateFormAd addOglas={addOglas} myName={myName} />

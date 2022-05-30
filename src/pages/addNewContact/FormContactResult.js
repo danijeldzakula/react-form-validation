@@ -6,7 +6,6 @@ const FormContactResult = ({ contacts }) => {
       <div className="container">
         <div className='result'>
           <h2 className='text-center mb-4 mt-4'>Contact result</h2>
-
           <table className='table'>
             <thead>
               <tr>

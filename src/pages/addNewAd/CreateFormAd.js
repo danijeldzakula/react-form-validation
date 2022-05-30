@@ -2,13 +2,14 @@ import React, { useRef, useState, useEffect } from 'react';
 import AlertMessage from '../../components/alertMessage/AlertMessage';
 
 const CreateFormAd = ({ addOglas, myName }) => {
-
+  // all inputs refs
   const refRegion = useRef(null);
   const refCity = useRef(null);
   const refDateFrom = useRef(null);
   const refDateTo = useRef(null);
   const refDescription = useRef(null);
 
+  // form results 
   const [ formResult, setFormResult ] = useState({
     regions: '',
     cities: '',
@@ -17,33 +18,44 @@ const CreateFormAd = ({ addOglas, myName }) => {
     to: undefined
   });
 
-  const [ successMessage, setSuccessMessage ] = useState('');
+  // set message value
+  const [ messages, setMessages ] = useState([]);
+  // call messages 
+  const callMessage = (value) => {
+    setMessages([...messages, value]);
+  }
 
-
+  // add error to input
   const handleError = (element, name) => {
     name === '' || name === '0' || typeof name === 'undefined' ? element.current.classList.add('error') : element.current.classList.remove('error');
   }
-
+  
+  // handle submit form 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    // handle input error
     handleError(refRegion, formResult.regions);
     handleError(refCity, formResult.cities);
     handleError(refDescription, formResult.description);
     handleError(refDateFrom, formResult.from);
     handleError(refDateTo, formResult.to);
-
+    // check validation form 
     if (formResult.regions.length !== 0 && formResult.regions !== '' && formResult.regions !== '0' && formResult.cities.length !== 0 && formResult.cities !== '' && formResult.cities !== '0' && formResult.description !== '' && formResult.description.length !== 0 && formResult.from !== undefined && formResult.to !== undefined) {
+      // add new ad
       addOglas(formResult);
-      setSuccessMessage('Uspesno ste popunili obrazac!');
+      // reset state to default values
       setFormResult({ regions: "", cities: "", description: "", from: undefined, to: undefined });
+      // write success messages
+      callMessage({message: 'Uspesno ste popunili obrazac!'});
     }
   }
 
+  // get value with onchange event
   const handleChange = (event) => {
     setFormResult({ ...formResult, [event.target.name]: event.target.value });
   };
 
+  // get all regions
   const [ regions, setRegions ] = useState([]);
   useEffect(() => {
     fetch("server/regions.json")
@@ -54,9 +66,7 @@ const CreateFormAd = ({ addOglas, myName }) => {
     return () => {}
   }, []);
 
-
-  console.log(formResult)
-
+  // get all cities
   const [ cities, setCities ] = useState([]);
   useEffect(() => {
     fetch("server/cities.json")
@@ -67,7 +77,6 @@ const CreateFormAd = ({ addOglas, myName }) => {
     return () => {}
   }, []);
 
-
   return (
     <section className='section section-add-new-contact'>
       <div className="container max-w-md">
@@ -75,12 +84,12 @@ const CreateFormAd = ({ addOglas, myName }) => {
           <h2 className='text-center mb-4 mt-4 border-b-[1px] border-zinc-400 pb-4'>{myName}</h2>
           <h2 className='text-center mb-4 mt-4 text-2xl'>Add new Ad</h2>
 
-          {successMessage.length ? <AlertMessage message={successMessage} time={10000} /> : null}
+          {messages.length ? messages.map((message, key) => <AlertMessage message={message.message} time={10000} key={key} /> ) : null}
 
           <div className='form-group'>
             <label htmlFor="regions" className='block mb-2'>Region:</label>
             <select className='select-field' name="regions" id='regions' onChange={handleChange} ref={refRegion}>
-              <option value="0">Odaberite Region</option>
+              <option value="0" defaultValue="0">Odaberite Region</option>
               {regions && regions.map((region, key) => <option key={key} value={region.region || ''}>{region.value}</option> )}
             </select>
           </div>
@@ -88,7 +97,7 @@ const CreateFormAd = ({ addOglas, myName }) => {
           <div className='form-group'>
             <label htmlFor="cities" className='block mb-2'>City:</label>
             <select className='select-field' name="cities" id='cities' onChange={handleChange} ref={refCity}>
-              <option value="0">Odaberite Grad</option>
+              <option value="0" defaultValue="0">Odaberite Grad</option>
               {cities && cities.filter((city) => city.region === parseInt(formResult?.regions))
                 .map((city, key) => <option key={key} value={city.value || ''} >{city.value}</option> )
               }

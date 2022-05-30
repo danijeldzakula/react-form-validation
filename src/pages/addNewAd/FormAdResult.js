@@ -7,7 +7,6 @@ const FormAdResult = ({ oglas }) => {
       <div className="container">
         <div className='result'>
           <h2 className='text-center mb-4 mt-4'>Ad result</h2>
-
           <table className='table'>
             <thead>
               <tr>
