@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .form { @apply mt-8 mb-8 }
+    .form-group { @apply mb-4 }
+    .field-label { @apply block mb-2 }
+    .field-date,
+    .field-input,
+    .field-select,
+    .field-textarea { @apply w-full bg-zinc-100 rounded-sm resize-none }
+    .field-select,
+    .field-date,
+    .field-input { @apply h-12 pl-4 pr-4 }
+    .field-textarea { @apply p-4 }
+    .btn { @apply pl-4 pr-4 h-12 block w-full }
+    .btn-success { @apply bg-green-500 font-bold text-white rounded-sm }
+    .result { @apply absolute inset-0 place-content-center bg-black/[0.3] hidden }
+    .result.is-show { @apply grid }
+    .table { @apply relative p-4 bg-white border-collapse border border-slate-500 z-20 whitespace-nowrap }
+
+    .error { @apply border-red-500 border-2 }
+
+    .container { @apply mx-auto pr-4 pl-4 }
+
+    .header { @apply pt-2 pb-2 }
+    .header .nav ul { @apply flex }
+    .header .nav a { @apply pt-3 pb-3 pl-4 pr-4 block }
+
+    .form, .result { @apply relative p-4 border-[1px] border-zinc-400 rounded-sm mx-auto block bg-white mt-0 mb-0 }
+
+    .input-field, .textarea-field, .select-field { @apply border-[1px] border-zinc-400 pl-2 pr-2 pt-1 pb-1 rounded-sm w-full }
+
+    .btn-submit { @apply bg-green-500 pl-2 pr-2 pt-2 pb-2 rounded-sm text-white w-full }
+
+    .table { @apply border-0 w-full }
+
+    .error { @apply border-[1px] border-red-500 }
+
+    .section { @apply pt-10 pb-10 }
+
+    .header .nav .nav-link.active { @apply bg-teal-500 }
+}
