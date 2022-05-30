@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 
-const CreateFormAd = ({ addOglas }) => {
+const CreateFormAd = ({ addOglas, myName }) => {
 
   const refRegion = useRef(null);
   const refCity = useRef(null);
@@ -66,16 +66,13 @@ const CreateFormAd = ({ addOglas }) => {
     <section className='section section-add-new-contact'>
       <div className="container max-w-md">
         <form className='form' onSubmit={(event) => handleSubmit(event)}>
+          <h2 className='text-center mb-4 mt-4 border-b-[1px] border-zinc-400 pb-4'>{myName}</h2>
           <h2 className='text-center mb-4 mt-4'>Add new Ad</h2>
           <div className='form-group'>
             <label htmlFor="regions" className='block mb-2'>Region:</label>
             <select className='select-field' name="regions" id='regions' onChange={handleChange} ref={refRegion}>
               <option value="0">Odaberite Region</option>
-              {regions && regions.map((region, key) => {
-                return (
-                  <option key={key} value={region.region || ''}>{region.value}</option>
-                );
-              })}
+              {regions && regions.map((region, key) => <option key={key} value={region.region || ''}>{region.value}</option> )}
             </select>
           </div>
 
@@ -84,11 +81,7 @@ const CreateFormAd = ({ addOglas }) => {
             <select className='select-field' name="cities" id='cities' onChange={handleChange} ref={refCity}>
               <option value="0">Odaberite Grad</option>
               {cities && cities.filter((city) => city.region === parseInt(formResult?.regions))
-                .map((city, key) => {
-                  return (
-                    <option key={key} value={city.value || ''} >{city.value}</option>
-                  )
-                })
+                .map((city, key) => <option key={key} value={city.value || ''} >{city.value}</option> )
               }
             </select>
           </div>

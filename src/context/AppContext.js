@@ -2,11 +2,11 @@ import React, { createContext, useState, useContext } from 'react';
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const [ searchBar, setSearchBar ] = useState('Dado');
+  const [ myName, setMyName ] = useState("Hi, i'm Danijel Dzakula, Front-end developer.");
 
   const CONTEXT_VALUE = {
-    searchBar,
-    setSearchBar
+    myName,
+    setMyName
   }
 
   return (

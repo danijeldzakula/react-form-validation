@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-const FormContact = ({ addContact }) => {
+const FormContact = ({ addContact, myName }) => {
   const name = useRef(null);
   const email = useRef(null);
   const phone = useRef(null);
@@ -36,6 +36,7 @@ const FormContact = ({ addContact }) => {
     <section className='section section-add-new-ad'>
       <div className="container max-w-md">
         <form className='form' onSubmit={(event) => handleSubmit(event)}>
+          <h2 className='text-center mt-4 mb-4 border-b-[1px] border-zinc-400 pb-4'>{myName}</h2>
           <h2 className='text-center mb-4 mt-4'>Add new Contact</h2>
           <div className='form-group'>
             <label htmlFor="name" className='block mb-2'>Name:</label>
