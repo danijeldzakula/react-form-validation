@@ -1,13 +1,16 @@
 import React from 'react';
 import Main from './router/Main';
 import Header from './components/header/Header';
+import { AppProvider } from './context/AppContext';
 
 const App = () => {
   return (
-    <div className='app'>
-      <Header />
-      <Main />
-    </div>
+    <AppProvider>
+      <div className='app'>
+        <Header />
+        <Main />
+      </div>
+    </AppProvider>
   )
 }
 

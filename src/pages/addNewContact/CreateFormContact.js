@@ -33,7 +33,7 @@ const FormContact = ({ addContact }) => {
   };
 
   return (
-    <section className='section section-add-new-contact'>
+    <section className='section section-add-new-ad'>
       <div className="container max-w-md">
         <form className='form' onSubmit={(event) => handleSubmit(event)}>
           <h2 className='text-center mb-4 mt-4'>Add new Contact</h2>
