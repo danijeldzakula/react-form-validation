@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FormAdResult = ({ oglas }) => {
+const FormAdResult = ({ oglas, deleteAd }) => {
   return (
     <section className='section section-add-new-ad-result'>
       <div className="container">
@@ -14,6 +14,7 @@ const FormAdResult = ({ oglas }) => {
                 <th className='border border-zinc-400 p-4'>Description</th>
                 <th className='border border-zinc-400 p-4'>Date from</th>
                 <th className='border border-zinc-400 p-4'>Date to</th>
+                <th className='border border-zinc-400 p-4'>Options</th>
               </tr>
             </thead>
             <tbody>
@@ -25,6 +26,9 @@ const FormAdResult = ({ oglas }) => {
                     <td className='border border-zinc-400 p-4'>{ad.description}</td>
                     <td className='border border-zinc-400 p-4'>{ad.from}</td>
                     <td className='border border-zinc-400 p-4'>{ad.to}</td>
+                    <td className='border border-zinc-400 p-4'>
+                      <button onClick={(event) => deleteAd(event.target.value)} value={key}>Del</button>
+                    </td>
                   </tr>
                 )
               }) : (

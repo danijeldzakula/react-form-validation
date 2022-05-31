@@ -5,9 +5,9 @@ const AlertMessage = ({ message, time }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      alertBox.current.classList.remove('is-show');
-    }, time || 2000);
-  }, [message]);
+      if (alertBox.current) alertBox.current.classList.remove('is-show');
+    }, 2000);
+  }, [ alertBox, message ]);
 
   return (
     <div className='alert-message is-show' ref={alertBox}>

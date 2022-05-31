@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGlobal } from '../../context/AppContext';
 import FormContact from './CreateFormContact';
 import FormContactResult from './FormContactResult';
@@ -12,6 +12,18 @@ const AddNewContact = () => {
   const addContact = (form) => {
     updateContacts([ ...contacts, form ]);
   }
+
+  // saved ad in local storage
+  useEffect(() => {
+    const saveContacts = JSON.parse(localStorage.getItem('data-contacts'));
+    saveContacts && updateContacts(saveContacts);
+  }, []);
+
+  // update to local storage
+  useEffect(() => {
+    localStorage.setItem('data-contacts', JSON.stringify(contacts));
+  }, [ contacts ]);
+
   return (
     <>
       <FormContact addContact={addContact} myName={myName} />

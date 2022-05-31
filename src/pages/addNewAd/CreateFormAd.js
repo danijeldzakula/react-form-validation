@@ -25,11 +25,12 @@ const CreateFormAd = ({ addOglas, myName }) => {
     setMessages([...messages, value]);
   }
 
+
   // add error to input
   const handleError = (element, name) => {
     name === '' || name === '0' || typeof name === 'undefined' ? element.current.classList.add('error') : element.current.classList.remove('error');
   }
-  
+
   // handle submit form 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,19 +41,26 @@ const CreateFormAd = ({ addOglas, myName }) => {
     handleError(refDateFrom, formResult.from);
     handleError(refDateTo, formResult.to);
     // check validation form 
-    if (formResult.regions.length !== 0 && formResult.regions !== '' && formResult.regions !== '0' && formResult.cities.length !== 0 && formResult.cities !== '' && formResult.cities !== '0' && formResult.description !== '' && formResult.description.length !== 0 && formResult.from !== undefined && formResult.to !== undefined) {
+    if (formResult.regions !== '' && formResult.regions !== '0' && formResult.cities !== '' && formResult.cities !== '0' && formResult.description !== '' && formResult.from !== undefined && formResult.to !== undefined) {
       // add new ad
       addOglas(formResult);
       // reset state to default values
       setFormResult({ regions: "", cities: "", description: "", from: undefined, to: undefined });
       // write success messages
-      callMessage({message: 'Uspesno ste popunili obrazac!'});
+      callMessage({message: 'Uspesno ste popunili obrazac!'});  
     }
   }
+
+
+  // const [ noteText, setNoteText] = useState('');
+  // const characterLimit = 50;
 
   // get value with onchange event
   const handleChange = (event) => {
     setFormResult({ ...formResult, [event.target.name]: event.target.value });
+    // if (characterLimit - event.target.value.length >= 0) {
+    //   setNoteText(event.target.value);
+    // }    
   };
 
   // get all regions
@@ -117,6 +125,8 @@ const CreateFormAd = ({ addOglas, myName }) => {
           <div className='form-group'>
             <label htmlFor="description" className='block mb-2'>Description:</label>
             <textarea className='textarea-field' rows={4} type="textarea" ref={refDescription} id="description" name="description" value={formResult.description || ''} onChange={handleChange} />
+            {/* <p>Character limit: {characterLimit - noteText.length}</p> */} 
+            {/* value={noteText || ''} */}
           </div>
 
           <div className='form-group'>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import AlertMessage from '../../components/alertMessage/AlertMessage';
 
 const FormContact = ({ addContact, myName }) => {
@@ -17,7 +17,7 @@ const FormContact = ({ addContact, myName }) => {
   const handleError = (element, name) => {
     name.length === 0 ? element.current.classList.add('error') : element.current.classList.remove('error');
   }
-
+  
   // set message value
   const [ messages, setMessages ] = useState([]);
   // call messages 
@@ -32,8 +32,9 @@ const FormContact = ({ addContact, myName }) => {
     handleError(name, formResult.name);
     handleError(email, formResult.email);
     handleError(phone, formResult.phone);
+
     // check validation form
-    if (formResult.name.length !== 0 && formResult.email.length !== 0 && formResult.phone.length !== 0) {
+    if (formResult.name !== '' && formResult.email !== '' && formResult.phone !== '') {
       // add new contact 
       addContact(formResult);
       // reset state to default values
